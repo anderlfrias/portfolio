@@ -4,16 +4,18 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Download, ChevronRight, Github, Linkedin, Mail, Layout, Terminal, Database, Code2, ArrowRight, Sparkles } from 'lucide-react';
 
 // --- INTERFACES TYPESCRIPT ---
-interface Particle {
-  angle: number;
-  radius: number;
-  speed: number;
+interface TrailParticle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
   color: string;
-  length: number;
-  thickness: number;
+  life: number;
+  maxLife: number;
 }
 
-interface ParticleFieldProps {
+interface GalaxyTrailProps {
   dark?: boolean;
 }
 
@@ -25,8 +27,7 @@ interface Project {
   tags: string[];
 }
 
-// --- COMPONENTE DE PARTÍCULAS (Fondo estilo Antigravity) ---
-const ParticleField: React.FC<ParticleFieldProps> = ({ dark = false }) => {
+const GalaxyTrail: React.FC<GalaxyTrailProps> = ({ dark = false }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -37,61 +38,118 @@ const ParticleField: React.FC<ParticleFieldProps> = ({ dark = false }) => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let particles: Particle[] = [];
+    const particles: TrailParticle[] = [];
+    
+    // Iniciar no centro
+    let mouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let targetMouse = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+    let angle = 0;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      // Calcular a posição relativa ao canvas atual
+      targetMouse.x = e.clientX - rect.left;
+      targetMouse.y = e.clientY - rect.top;
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
 
     const resize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      initParticles();
+      // Centralizar novamente se for redimensionado
+      mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+      targetMouse = { x: canvas.width / 2, y: canvas.height / 2 };
     };
+    
+    window.addEventListener('resize', resize);
+    resize();
 
-    const initParticles = () => {
-      particles = [];
-      const numParticles = 400; // Densidad de partículas
-      for (let i = 0; i < numParticles; i++) {
-        particles.push({
-          angle: Math.random() * Math.PI * 2,
-          radius: Math.random() * (canvas.width > 800 ? 800 : 400),
-          speed: (Math.random() * 0.2) + 0.05,
-          color: ['#4285F4', '#4285F4', '#4285F4', '#EA4335', '#9333EA'][Math.floor(Math.random() * 5)], // Mayormente azul
-          length: (Math.random() * 4) + 2,
-          thickness: (Math.random() * 1.5) + 0.5
-        });
-      }
-    };
+    // Paleta de cores da galáxia (Azul, Roxo, Vermelho)
+    const colors = ['#4285F4', '#9333EA', '#EA4335'];
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
+      
+      // Interpolação suave para que a galáxia siga o cursor com um leve atraso
+      const dx = targetMouse.x - mouse.x;
+      const dy = targetMouse.y - mouse.y;
+      mouse.x += dx * 0.15;
+      mouse.y += dy * 0.15;
+      
+      angle += 0.08; // Velocidade de rotação central
 
-      particles.forEach(p => {
-        // Rotación lenta
-        p.angle += p.speed * 0.01;
+      // Emitir novas partículas nos "braços" da galáxia
+      const arms = 3;
+      for (let i = 0; i < arms; i++) {
+        const currentAngle = angle + (i * Math.PI * 2) / arms;
+        const radius = 10; // Raio inicial do núcleo
+        const px = mouse.x + Math.cos(currentAngle) * radius;
+        const py = mouse.y + Math.sin(currentAngle) * radius;
+
+        particles.push({
+          x: px,
+          y: py,
+          // Velocidade tangencial (giro) + uma porcentagem da inércia do mouse
+          vx: Math.cos(currentAngle + Math.PI / 2) * 2 + dx * 0.02,
+          vy: Math.sin(currentAngle + Math.PI / 2) * 2 + dy * 0.02,
+          size: Math.random() * 4.5 + 2.5, // Partículas maiores
+          color: colors[i],
+          life: 0,
+          maxLife: 60 + Math.random() * 40 // Rastro consideravelmente mais longo
+        });
+      }
+
+      // Configurar modo de mesclagem para o efeito brilhante
+      ctx.globalCompositeOperation = dark ? 'lighter' : 'multiply';
+
+      // Atualizar e desenhar partículas
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life++;
+        p.x += p.vx;
+        p.y += p.vy;
         
-        ctx.save();
-        ctx.translate(centerX, centerY);
-        ctx.rotate(p.angle);
-        
-        ctx.fillStyle = dark ? p.color : p.color;
-        ctx.globalAlpha = dark ? 0.8 : 0.6; // Opacidad
-        
-        // Dibujar un pequeño "dash" o línea
+        // Fricção para que se expandam e depois parem suavemente
+        p.vx *= 0.96;
+        p.vy *= 0.96;
+
+        const progress = p.life / p.maxLife;
+        if (progress >= 1) {
+          particles.splice(i, 1);
+          continue;
+        }
+
+        // Encolhem à medida que morrem
+        const currentSize = p.size * (1 - progress);
+        const alpha = 1 - Math.pow(progress, 2); // Curva de desvanecimento
+
         ctx.beginPath();
-        ctx.roundRect(p.radius, 0, p.length, p.thickness, 2);
+        ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        // No tema claro usamos menos opacidade para não saturar o fundo branco
+        ctx.globalAlpha = dark ? alpha : alpha * 0.5; 
+        
+        if (dark) {
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = p.color;
+        } else {
+          ctx.shadowBlur = 0;
+        }
+        
         ctx.fill();
-        ctx.restore();
-      });
+      }
+      
+      ctx.globalAlpha = 1;
 
       animationFrameId = window.requestAnimationFrame(draw);
     };
 
-    window.addEventListener('resize', resize);
-    resize();
     draw();
 
     return () => {
       window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
       window.cancelAnimationFrame(animationFrameId);
     };
   }, [dark]);
@@ -157,7 +215,7 @@ export default function App() {
       <main>
         {/* HERO SECTION */}
         <section className="relative min-h-screen flex flex-col items-center justify-center pt-20 px-6 overflow-hidden">
-          <ParticleField dark={false} />
+          <GalaxyTrail dark={false} />
           
           <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center">
             <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-gray-200 bg-white shadow-sm text-sm font-medium text-gray-800">
@@ -281,7 +339,7 @@ export default function App() {
 
         {/* DARK SECTION - CTA (DOWNLOAD LINUX STYLE) */}
         <section id="contacto" className="relative py-40 px-6 bg-[#000000] text-white overflow-hidden rounded-t-[3rem]">
-          <ParticleField dark={true} />
+          <GalaxyTrail dark={true} />
           
           <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-start">
             <h2 className="text-5xl md:text-7xl font-medium tracking-tighter leading-tight mb-10">
