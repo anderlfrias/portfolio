@@ -162,13 +162,17 @@ export default function App() {
           <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center">
             <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-gray-200 bg-white shadow-sm text-sm font-medium text-gray-800">
               <Sparkles className="w-4 h-4 text-[#4285F4]" />
-              Hola, soy Desarrollador de Software
+              Hola, soy Anderson Frias
             </div>
             
-            <h1 className="text-6xl md:text-[5.5rem] lg:text-[7rem] font-medium tracking-tighter leading-[1.05] mb-8 text-[#111]">
-              Ingeniería digital con
-              <br className="hidden md:block" /> precisión y diseño.
+            <h1 className="text-6xl md:text-[5.5rem] lg:text-[6rem] font-medium tracking-tighter leading-[1.05] mb-8 text-[#111]">
+              Construyo aplicaciones web modernas y escalables.
+              {/* <br className="hidden md:block" />  */}
             </h1>
+
+            <p className="max-w-2xl text-lg md:text-xl text-gray-600 mb-8">
+              Desarrollador de Software especializado en React, Next.js y TypeScript.
+            </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-4">
               <a href="#proyectos" className="bg-[#111] text-white px-8 py-4 rounded-full text-lg font-medium hover:bg-black transition-all shadow-lg flex items-center gap-3">
@@ -188,7 +192,7 @@ export default function App() {
             <div className="flex flex-wrap justify-center md:justify-start gap-4 mb-16">
               {[<Layout key="layout"/>, <Terminal key="terminal"/>, <Database key="database"/>, <Code2 key="code2"/>, <Github key="github"/>, <Sparkles key="sparkles"/>, <LayersIcon key="layers"/>].map((icon, i) => (
                 <div key={i} className="w-16 h-16 rounded-full border border-gray-200 flex items-center justify-center text-gray-600 hover:border-[#4285F4] hover:text-[#4285F4] transition-colors cursor-pointer bg-white shadow-sm hover:shadow-md transform hover:-translate-y-1 duration-200">
-                  {React.cloneElement(icon as React.ReactElement<any>, { className: 'w-6 h-6' })}
+                  {React.cloneElement(icon as React.ReactElement<React.SVGProps<SVGSVGElement>>, { className: 'w-6 h-6' })}
                 </div>
               ))}
             </div>
@@ -226,7 +230,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="p-6 font-mono text-sm overflow-x-auto text-gray-700 leading-loose">
-                  <span className="text-purple-600">import</span> {'{'} Calidad, Rendimiento {'}'} <span className="text-purple-600">from</span> <span className="text-green-600">'@best-practices/core'</span>;<br/><br/>
+                  <span className="text-purple-600">import</span> {'{'} Calidad, Rendimiento {'}'} <span className="text-purple-600">from</span> <span className="text-green-600">&apos;@best-practices/core&apos;</span>;<br/><br/>
                   <span className="text-purple-600">export default function</span> <span className="text-blue-600">EntregarProyecto</span>() {'{'}<br/>
                   &nbsp;&nbsp;<span className="text-purple-600">return</span> (<br/>
                   &nbsp;&nbsp;&nbsp;&nbsp;&lt;<span className="text-red-500">Producto</span> <span className="text-orange-500">escalable</span>=<span className="text-blue-600">{'{'}true{'}'}</span>&gt;<br/>
