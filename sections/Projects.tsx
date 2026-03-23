@@ -6,7 +6,7 @@ export default function Projects() {
     <section id="proyectos" className="py-32 px-6 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-end mb-12">
         <h2 className="text-4xl md:text-5xl font-medium tracking-tight">Trabajos Destacados</h2>
-        <a href="https://github.com" target="_blank" rel="noreferrer" className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 font-medium hover:bg-gray-50 transition-colors">
+        <a href="https://github.com/anderlfrias" target="_blank" rel="noreferrer" className="hidden md:flex items-center gap-2 px-6 py-2 rounded-full border border-gray-200 font-medium hover:bg-gray-50 transition-colors">
           <Github className="w-4 h-4" /> Ver GitHub
         </a>
       </div>

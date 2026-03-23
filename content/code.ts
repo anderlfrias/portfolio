@@ -1,5 +1,6 @@
 export const CODE_CONTENT = {
-  titleLine1: "Código limpio,",
-  titleLine2: "resultados reales.",
-  description: "Me enfoco en escribir código claro y mantenible, pensado para evolucionar con el producto. Aplico buenas prácticas como separación de capas, manejo adecuado de estado y optimización de rendimiento desde el inicio."
+  titleLine1: "Cómo pienso",
+  titleLine2: "en código.",
+  description: "Más allá de las herramientas puntuales, el foco real está en la arquitectura, la sostenibilidad y el negocio. Un sistema robusto se construye con decisiones claras que previenen la deuda técnica antes de que nazca.",
+  codeTitle: "mindset.ts"
 };
