@@ -8,7 +8,7 @@ import Footer from '@/sections/Footer';
 
 export default function Page() {
   return (
-    <div className="min-h-screen bg-white text-[#111111] font-sans selection:bg-[#4285F4] selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-bg-main text-text-main font-sans selection:bg-blue-base selection:text-text-main overflow-x-hidden">
       <Navbar />
       <main>
         <Hero />

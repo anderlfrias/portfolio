@@ -54,7 +54,7 @@ export default function GalaxyTrail({ dark = false }: GalaxyTrailProps) {
     resize();
 
     // Paleta de colores
-    const colors = ['#4285F4', '#9333EA', '#EA4335'];
+    const colors = ['#1E4F8A', '#39B8C9', '#3FAF5A'];
 
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
