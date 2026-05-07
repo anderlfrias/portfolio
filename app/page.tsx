@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/sections/Hero';
 import Skills from '@/sections/Skills';
+import Experience from '@/sections/Experience';
 import CodeSection from '@/sections/CodeSection';
 import Projects from '@/sections/Projects';
 import Contact from '@/sections/Contact';
@@ -13,6 +14,7 @@ export default function Page() {
       <main>
         <Hero />
         <Skills />
+        <Experience />
         <CodeSection />
         <Projects />
         <Contact />
