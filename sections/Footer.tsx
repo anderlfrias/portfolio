@@ -1,4 +1,5 @@
 import { Sparkles } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -30,8 +31,13 @@ export default function Footer() {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-surface text-sm text-text-sec font-medium">
           <div className="flex items-center gap-2 mb-4 md:mb-0 text-text-main">
-            <Sparkles className="w-5 h-5 text-blue-base" />
-            <span className="text-lg tracking-tight">anderlfrias</span>
+            <Image src="/logo-trazo.svg"
+              alt="Logo trazo"
+              width={24}
+              height={24}
+              className="object-contain font-bold"
+              unoptimized
+            />            <span className="text-lg tracking-tight">anderlfrias</span>
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-text-main">© {new Date().getFullYear()} Todos los derechos reservados.</a>

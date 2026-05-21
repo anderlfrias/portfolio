@@ -1,4 +1,5 @@
-import { Sparkles, Terminal } from 'lucide-react';
+import { Terminal } from 'lucide-react';
+import Image from 'next/image';
 import GalaxyTrail from '@/components/GalaxyTrail';
 import { HERO_CONTENT } from '@/content/hero';
 
@@ -9,7 +10,13 @@ export default function Hero() {
 
       <div className="relative z-10 text-center max-w-5xl mx-auto flex flex-col items-center">
         <div className="flex items-center gap-2 mb-6 px-4 py-1.5 rounded-full border border-surface bg-bg-sec shadow-sm text-sm font-medium text-text-main">
-          <Sparkles className="w-4 h-4 text-blue-base" />
+          <Image src="/logo-trazo.svg"
+            alt="Logo trazo"
+            width={24}
+            height={24}
+            className="object-contain font-bold text-blue-800"
+            unoptimized
+          />
           {HERO_CONTENT.badge}
         </div>
 
