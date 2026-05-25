@@ -11,9 +11,8 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-4 text-sm font-medium text-text-main">
             <span className="text-text-disabled mb-2">Social</span>
-            <a href="#" className="hover:text-blue-inter">Github</a>
-            <a href="#" className="hover:text-blue-inter">LinkedIn</a>
-            <a href="#" className="hover:text-blue-inter">Twitter / X</a>
+            <a href="https://github.com/anderlfrias" target="_blank" rel="noopener noreferrer" className="hover:text-blue-inter">Github</a>
+            <a href="https://www.linkedin.com/in/anderlfrias/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-inter">LinkedIn</a>
           </div>
           <div className="flex flex-col gap-4 text-sm font-medium text-text-main">
             <span className="text-text-disabled mb-2">Navegación</span>

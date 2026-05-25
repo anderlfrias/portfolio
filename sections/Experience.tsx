@@ -1,4 +1,3 @@
-import React from 'react';
 import { Briefcase, Activity, Globe, Database, Server, Terminal, Calendar, Code2 } from 'lucide-react';
 
 export default function Experience() {
@@ -18,14 +17,14 @@ export default function Experience() {
             Experiencia construyendo software real.
           </h2>
           <p className="text-lg md:text-xl text-text-sec leading-relaxed font-light">
-            Más de <span className="text-text-main font-medium">5 años</span> desarrollando sistemas empresariales enfocados en automatización, rendimiento y escalabilidad.<br className="hidden md:block" /> He participado en el diseño, desarrollo y despliegue de plataformas utilizadas en entornos reales, incluyendo sistemas clínicos, financieros, académicos y operativos.
+            Más de <span className="text-text-main font-medium">4 años</span> construyendo sistemas empresariales orientados a automatización, integración y escalabilidad.<br className="hidden md:block" /> Experiencia diseñando y operando plataformas en producción dentro de entornos clínicos, financieros y administrativos.
           </p>
         </div>
 
         {/* 2. METRICS BLOCK */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-24">
           {[
-            { value: '5+ años', label: 'Desarrollando software', icon: <Terminal className="w-5 h-5" /> },
+            { value: '4+ años', label: 'Desarrollando software', icon: <Terminal className="w-5 h-5" /> },
             { value: '8+', label: 'Sistemas empresariales', icon: <Database className="w-5 h-5" /> },
             { value: 'Múltiples', label: 'Integraciones con plataformas', icon: <Globe className="w-5 h-5" /> },
             { value: 'Producción', label: 'Sistemas desplegados', icon: <Activity className="w-5 h-5" /> },
@@ -59,12 +58,10 @@ export default function Experience() {
 
             <ul className="space-y-4 mb-8">
               {[
-                "Diseñé y desarrollé una plataforma integral de facturación, inventario y contabilidad, eliminando dependencias de software externo y reduciendo costos operativos.",
-                "Implementé sistemas operativos internos para servicios médicos a domicilio, integrando logística, facturación y métricas operativas.",
-                "Diseñé APIs RESTful para integración con múltiples plataformas externas, mejorando consistencia y velocidad de intercambio de datos.",
-                "Lidero decisiones técnicas, asignación de tareas y seguimiento de desarrollo dentro del equipo.",
-                "Gestiono despliegues en servidores Linux, configuración de aplicaciones, automatización de backups y mantenimiento de infraestructura.",
-                "Participé en migraciones de infraestructura cloud, optimizando costos y mejorando rendimiento general de las aplicaciones."
+                "Diseñé y desarrollé una plataforma integral de facturación, inventario y contabilidad utilizada en producción, eliminando dependencia de software externo y reduciendo costos operativos.",
+                "Implementé sistemas internos para gestión de servicios médicos a domicilio, integrando operaciones, facturación y métricas de negocio.",
+                "Diseñé APIs REST para integración entre múltiples sistemas, mejorando consistencia y reduciendo fricción en el intercambio de datos.",
+                "Lideré decisiones técnicas y coordinación del equipo de desarrollo, definiendo arquitectura y estándares de implementación.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-text-sec leading-relaxed font-light">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-base/50 mt-2.5 shrink-0" />
@@ -86,23 +83,22 @@ export default function Experience() {
           <div className="bg-surface rounded-[2rem] p-8 md:p-12 border border-surface shadow-sm hover:shadow-lg transition-all duration-300">
              <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
               <div>
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Independent Software Consultant</h3>
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Consultoría en Desarrollo de Software</h3>
                 <div className="text-blue-base font-medium text-lg flex items-center gap-2">
-                  <Server className="w-5 h-5" /> Consultoría Independiente
+                  <Server className="w-5 h-5" /> Soluciones de Software a Medida
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-main border border-surface text-text-sec text-sm font-medium shrink-0">
-                <Calendar className="w-4 h-4" /> 2021 — Actualidad
+                <Calendar className="w-4 h-4" /> 2022 — Actualidad
               </div>
             </div>
 
             <ul className="space-y-4 mb-8">
               {[
-                "Desarrollo de plataformas empresariales para automatización de procesos administrativos y operativos.",
-                "Participación directa en levantamiento de requerimientos, análisis de negocio y definición de soluciones técnicas.",
-                "Diseño de arquitecturas escalables para sistemas de gestión clínica, académica, financiera y monitoreo operativo.",
-                "Implementación y soporte continuo de aplicaciones en producción, incorporando mejoras basadas en feedback real de usuarios.",
-                "Coordinación técnica y estructuración de proyectos junto a equipos de desarrollo multidisciplinarios."
+                "Diseño de soluciones empresariales para automatización de procesos administrativos y operativos.",
+                "Levantamiento de requerimientos y definición de arquitectura técnica en proyectos de software.",
+                "Implementación de sistemas escalables para gestión clínica, académica y financiera.",
+                "Soporte y evolución de aplicaciones en producción basadas en feedback real de usuarios.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-text-sec leading-relaxed font-light">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-base/50 mt-2.5 shrink-0" />

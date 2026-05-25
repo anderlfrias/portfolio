@@ -35,11 +35,15 @@ export const PROJECTS: Project[] = [
       'Disminución de errores manuales',
       'Base escalable para crecimiento'
     ],
-    image: 'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop',
+    image: '/projects/gestion-academica/1.png',
     gallery: [
-      'https://images.unsplash.com/photo-1557821552-17105176677c?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1000&auto=format&fit=crop'
+      '/projects/gestion-academica/1.png',
+      '/projects/gestion-academica/2.png',
+      '/projects/gestion-academica/3.png',
+      '/projects/gestion-academica/4.png',
+      '/projects/gestion-academica/5.png',
+      '/projects/gestion-academica/6.png',
+      '/projects/gestion-academica/7.png',
     ]
   },
   {
