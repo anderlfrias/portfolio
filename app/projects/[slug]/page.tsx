@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/sections/Footer';
 import { ArrowLeft, CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
+import ProjectGallery from '@/components/ProjectGallery';
 
 export default async function ProjectPage({
   params,
@@ -102,17 +103,7 @@ export default async function ProjectPage({
             </div>
           </div>
 
-          <div className="pt-16 border-t border-surface">
-            <h2 className="text-3xl font-medium text-text-main mb-10">Imágenes del proyecto</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {project.gallery.map((img, i) => (
-                <div key={i} className="bg-surface rounded-2xl h-[300px] overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={img} alt={`${project.title} screenshot ${i+1}`} className="w-full h-full object-cover" />
-                </div>
-              ))}
-            </div>
-          </div>
+          <ProjectGallery images={project.gallery} title={project.title} />
         </section>
 
       </main>

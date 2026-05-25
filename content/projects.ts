@@ -66,11 +66,14 @@ export const PROJECTS: Project[] = [
       'Reducción del tiempo de documentación médica',
       'Mayor control de seguridad en datos sensibles'
     ],
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
+    image: '/projects/sistema-clinico/1.png',
     gallery: [
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1576091160550-2173ff9e5eb4?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1505751172876-fa1923c5c528?q=80&w=1000&auto=format&fit=crop'
+      '/projects/sistema-clinico/1.png',
+      '/projects/sistema-clinico/2.png',
+      '/projects/sistema-clinico/3.png',
+      '/projects/sistema-clinico/4.png',
+      '/projects/sistema-clinico/5.png',
+      '/projects/sistema-clinico/6.png',
     ]
   },
   {
@@ -94,11 +97,18 @@ export const PROJECTS: Project[] = [
       'Mejora en toma de decisiones',
       'Optimización de tiempos de servicio'
     ],
-    image: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1000&auto=format&fit=crop',
+    image: '/projects/kiu/1.png',
     gallery: [
-      'https://images.unsplash.com/photo-1611224923853-80b023f02d71?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop'
+      '/projects/kiu/1.png',
+      '/projects/kiu/2.png',
+      '/projects/kiu/3.png',
+      '/projects/kiu/4.png',
+      '/projects/kiu/5.png',
+      '/projects/kiu/6.png',
+      '/projects/kiu/7.png',
+      '/projects/kiu/8.png',
+      '/projects/kiu/9.png',
+      '/projects/kiu/10.png',
     ]
   }
 ];
