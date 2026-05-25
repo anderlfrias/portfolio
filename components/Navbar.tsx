@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
-import { Mail, Menu, X } from 'lucide-react';
+import { ExternalLink, Menu, X } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Navbar() {
@@ -34,8 +34,8 @@ export default function Navbar() {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <a href="#contacto" className="hidden md:flex bg-blue-base text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-[#173E6B] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-base/20 items-center gap-2">
-            Contratarme <Mail className="w-4 h-4" />
+          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="hidden md:flex bg-blue-base text-white px-5 py-2 rounded-full text-sm font-medium hover:bg-[#173E6B] transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-blue-base/20 items-center gap-2">
+            Currículum <ExternalLink className="w-4 h-4" />
           </a>
           <button 
             className="md:hidden text-text-main p-2 transition-transform duration-300 hover:scale-110 active:scale-95"
@@ -61,8 +61,8 @@ export default function Navbar() {
           <a href="#experiencia" className="text-text-main hover:text-blue-inter font-medium py-3 px-4 rounded-xl hover:bg-surface/50 transition-all duration-300 active:scale-95" onClick={() => setIsMobileMenuOpen(false)}>Experiencia</a>
           <a href="#contacto" className="text-text-main hover:text-blue-inter font-medium py-3 px-4 rounded-xl hover:bg-surface/50 transition-all duration-300 active:scale-95" onClick={() => setIsMobileMenuOpen(false)}>Contacto</a>
           <div className="pt-2 mt-2 border-t border-surface">
-            <a href="#contacto" className="bg-blue-base text-white px-5 py-3 rounded-xl text-sm font-medium hover:bg-[#173E6B] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
-              Contratarme <Mail className="w-4 h-4" />
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer" className="bg-blue-base text-white px-5 py-3 rounded-xl text-sm font-medium hover:bg-[#173E6B] transition-all duration-300 active:scale-95 flex items-center justify-center gap-2" onClick={() => setIsMobileMenuOpen(false)}>
+              Currículum <ExternalLink className="w-4 h-4" />
             </a>
           </div>
         </div>
