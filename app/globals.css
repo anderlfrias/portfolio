@@ -47,6 +47,10 @@
   background-clip: text;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--color-bg-main);
   color: var(--color-text-main);

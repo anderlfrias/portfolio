@@ -22,10 +22,10 @@ export default function Navbar() {
     }`}>
       <div className="max-w-[1400px] mx-auto px-6 h-16 flex justify-between items-center">
         <div className="flex items-center gap-8">
-          <div className="font-semibold text-lg flex items-center gap-2 tracking-tight transition-transform duration-300 hover:scale-105 cursor-pointer">
+          <a href="#" className="font-semibold text-lg flex items-center gap-2 tracking-tight transition-transform duration-300 hover:scale-105 cursor-pointer text-text-main hover:no-underline">
             <Image src="/logo.png" alt="Logo" width={30} height={30} />
             <span>anderlfrias</span>
-          </div>
+          </a>
           <div className="hidden md:flex gap-6 text-sm font-medium text-text-sec">
             <a href="#proyectos" className="hover:text-blue-inter transition-all duration-300 hover:-translate-y-0.5">Proyectos</a>
             <a href="#habilidades" className="hover:text-blue-inter transition-all duration-300 hover:-translate-y-0.5 flex items-center gap-1">Habilidades</a>
