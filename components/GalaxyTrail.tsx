@@ -2,19 +2,29 @@
 
 import React, { useEffect, useRef } from 'react';
 
-export interface TrailParticle {
+export interface GalaxyTrailProps {
+  dark?: boolean;
+}
+
+interface TrailNode {
   x: number;
   y: number;
   vx: number;
   vy: number;
-  size: number;
-  color: string;
-  life: number;
-  maxLife: number;
 }
 
-export interface GalaxyTrailProps {
-  dark?: boolean;
+interface TrailLine {
+  color: string;
+  spring: number;
+  friction: number;
+  nodes: TrailNode[];
+}
+
+function hexToRgba(hex: string, alpha: number) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
 export default function GalaxyTrail({ dark = false }: GalaxyTrailProps) {
@@ -24,39 +34,58 @@ export default function GalaxyTrail({ dark = false }: GalaxyTrailProps) {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    // Obtener contexto optimizado, desynchronized reduce latencia si está soportado
     const ctx = canvas.getContext('2d', { alpha: true, desynchronized: true });
     if (!ctx) return;
 
     let animationFrameId: number;
-    const particles: TrailParticle[] = [];
-    
+
     // Configuraciones de rendimiento dinámicas
     let isMobile = window.innerWidth < 768;
-    let maxParticles = isMobile ? 35 : 70; // Reducción estricta de partículas
-    let targetFps = isMobile ? 30 : 60; 
+    let targetFps = isMobile ? 30 : 60;
     let frameInterval = 1000 / targetFps;
     let lastRenderTime = performance.now();
     let logicalWidth = window.innerWidth;
     let logicalHeight = window.innerHeight;
 
-    // Posición inicial (centro de la pantalla)
     let mouse = { x: logicalWidth / 2, y: logicalHeight / 2 };
-    let targetMouse = { x: logicalWidth / 2, y: logicalHeight / 2 };
-    let angle = 0;
 
-    // Escuchar eventos pasivos para no bloquear el scroll
+    // Física de cadena de resortes: cada línea es una serie de nodos que se
+    // persiguen unos a otros (el primero persigue al mouse), como una cuerda
+    // que se sacude con inercia. El "rastro" nace del retraso físico entre
+    // nodos, no de un historial de posiciones.
+    const DAMPENING = 0.25;
+    const TENSION = 0.98;
+    const colors = ['#1E4F8A', '#39B8C9', '#3FAF5A'];
+    let lines: TrailLine[] = [];
+
+    const setupLines = () => {
+      const trailCount = isMobile ? 5 : 9;
+      const nodesPerLine = isMobile ? 12 : 22;
+      lines = Array.from({ length: trailCount }, (_, i) => ({
+        color: colors[i % colors.length],
+        spring: 0.38 + (i / trailCount) * 0.03,
+        friction: 0.5 + (Math.random() * 0.02 - 0.01),
+        nodes: Array.from({ length: nodesPerLine }, () => ({
+          x: mouse.x,
+          y: mouse.y,
+          vx: 0,
+          vy: 0,
+        })),
+      }));
+    };
+    setupLines();
+
     const handleMouseMove = (e: MouseEvent) => {
       const rect = canvas.getBoundingClientRect();
-      targetMouse.x = e.clientX - rect.left;
-      targetMouse.y = e.clientY - rect.top;
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
     };
 
     const handleTouchMove = (e: TouchEvent) => {
       if (e.touches.length > 0) {
         const rect = canvas.getBoundingClientRect();
-        targetMouse.x = e.touches[0].clientX - rect.left;
-        targetMouse.y = e.touches[0].clientY - rect.top;
+        mouse.x = e.touches[0].clientX - rect.left;
+        mouse.y = e.touches[0].clientY - rect.top;
       }
     };
 
@@ -66,132 +95,109 @@ export default function GalaxyTrail({ dark = false }: GalaxyTrailProps) {
     const resize = () => {
       if (!canvas) return;
       isMobile = window.innerWidth < 768;
-      maxParticles = isMobile ? 35 : 70;
       targetFps = isMobile ? 30 : 60;
       frameInterval = 1000 / targetFps;
-      
+
       logicalWidth = window.innerWidth;
       logicalHeight = window.innerHeight;
-      
-      // Limitar devicePixelRatio (1.25 max en móvil, 2 max en desktop para evitar exceso de píxeles)
+
       const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.25 : 2);
-      
+
       canvas.width = logicalWidth * dpr;
       canvas.height = logicalHeight * dpr;
-      
+
       canvas.style.width = `${logicalWidth}px`;
       canvas.style.height = `${logicalHeight}px`;
-      
+
       ctx.scale(dpr, dpr);
-      
-      // Resetear posición al centro si cambia el tamaño
+
       mouse = { x: logicalWidth / 2, y: logicalHeight / 2 };
-      targetMouse = { x: logicalWidth / 2, y: logicalHeight / 2 };
+
+      // Reconstruir las líneas para el nuevo conteo/posición y evitar saltos
+      setupLines();
     };
 
     window.addEventListener('resize', resize, { passive: true });
     resize();
 
-    const colors = ['#1E4F8A', '#39B8C9', '#3FAF5A'];
+    const lineWidth = isMobile ? 1.4 : 1.8;
+    const strokeAlpha = dark ? 0.55 : 0.4;
+
+    const updateLine = (line: TrailLine) => {
+      let spring = line.spring;
+      const nodes = line.nodes;
+
+      const head = nodes[0];
+      head.vx += (mouse.x - head.x) * spring;
+      head.vy += (mouse.y - head.y) * spring;
+
+      for (let i = 0; i < nodes.length; i++) {
+        const node = nodes[i];
+        if (i > 0) {
+          const prev = nodes[i - 1];
+          node.vx += (prev.x - node.x) * spring;
+          node.vy += (prev.y - node.y) * spring;
+          node.vx += prev.vx * DAMPENING;
+          node.vy += prev.vy * DAMPENING;
+        }
+        node.vx *= line.friction;
+        node.vy *= line.friction;
+        node.x += node.vx;
+        node.y += node.vy;
+        spring *= TENSION;
+      }
+    };
+
+    const drawLine = (line: TrailLine) => {
+      const nodes = line.nodes;
+      ctx.beginPath();
+      ctx.moveTo(nodes[0].x, nodes[0].y);
+
+      let i = 1;
+      const last = nodes.length - 2;
+      for (; i < last; i++) {
+        const a = nodes[i];
+        const b = nodes[i + 1];
+        const mx = 0.5 * (a.x + b.x);
+        const my = 0.5 * (a.y + b.y);
+        ctx.quadraticCurveTo(a.x, a.y, mx, my);
+      }
+      const a = nodes[i];
+      const b = nodes[i + 1];
+      ctx.quadraticCurveTo(a.x, a.y, b.x, b.y);
+
+      ctx.strokeStyle = hexToRgba(line.color, strokeAlpha);
+      ctx.lineWidth = lineWidth;
+      ctx.stroke();
+
+      // Resplandor suave adicional (solo escritorio + fondo oscuro)
+      if (dark && !isMobile) {
+        ctx.lineWidth = lineWidth + 3;
+        ctx.strokeStyle = hexToRgba(line.color, 0.12);
+        ctx.stroke();
+      }
+    };
 
     const draw = (currentTime: number) => {
       animationFrameId = window.requestAnimationFrame(draw);
 
       const deltaTime = currentTime - lastRenderTime;
-      
-      // Limitar FPS
       if (deltaTime < frameInterval) return;
-      
-      // Ajustar tiempo del último frame (evitando acumulación de retrasos)
       lastRenderTime = currentTime - (deltaTime % frameInterval);
 
-      // Limpiar canvas de forma eficiente usando dimensiones lógicas
       ctx.clearRect(0, 0, logicalWidth, logicalHeight);
+      ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over';
+      ctx.lineCap = 'round';
+      ctx.lineJoin = 'round';
 
-      // Interpolación suave del movimiento (easing)
-      const dx = targetMouse.x - mouse.x;
-      const dy = targetMouse.y - mouse.y;
-      mouse.x += dx * 0.15;
-      mouse.y += dy * 0.15;
-
-      angle += isMobile ? 0.05 : 0.08;
-
-      const arms = isMobile ? 2 : 3;
-
-      // Generar partículas de forma controlada
-      if (particles.length < maxParticles) {
-        // En móvil emitimos menos partículas por frame
-        const emitChance = isMobile ? 0.5 : 1; 
-        
-        if (Math.random() <= emitChance) {
-          for (let i = 0; i < arms; i++) {
-            const currentAngle = angle + (i * Math.PI * 2) / arms;
-            const radius = isMobile ? 6 : 10;
-            const px = mouse.x + Math.cos(currentAngle) * radius;
-            const py = mouse.y + Math.sin(currentAngle) * radius;
-
-            particles.push({
-              x: px,
-              y: py,
-              vx: Math.cos(currentAngle + Math.PI / 2) * 2 + dx * 0.02,
-              vy: Math.sin(currentAngle + Math.PI / 2) * 2 + dy * 0.02,
-              size: Math.random() * (isMobile ? 3.5 : 4.5) + 2,
-              color: colors[i],
-              life: 0,
-              maxLife: (isMobile ? 35 : 60) + Math.random() * 30
-            });
-          }
-        }
+      for (const line of lines) {
+        updateLine(line);
+        drawLine(line);
       }
 
-      // Evitar costoso 'multiply' si no es necesario o aligerar el efecto en modo dark
-      ctx.globalCompositeOperation = dark ? 'lighter' : 'source-over'; 
-
-      // Renderizar y actualizar partículas iterando de atrás hacia adelante
-      for (let i = particles.length - 1; i >= 0; i--) {
-        const p = particles[i];
-        p.life++;
-        p.x += p.vx;
-        p.y += p.vy;
-
-        // Fricción suave
-        p.vx *= 0.96;
-        p.vy *= 0.96;
-
-        const progress = p.life / p.maxLife;
-        
-        // Culling de partículas muertas o forzar límite si array excede el tamaño permitido
-        if (progress >= 1 || (particles.length > maxParticles && i < particles.length - maxParticles)) {
-          particles.splice(i, 1);
-          continue;
-        }
-
-        const currentSize = p.size * (1 - progress);
-        const alpha = 1 - Math.pow(progress, 2);
-
-        // Renderizado del núcleo de la partícula
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, currentSize, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = dark ? alpha : alpha * 0.7;
-        ctx.fill();
-        
-        // Simulación ligera de resplandor (reemplaza a shadowBlur) para dispositivos potentes
-        if (dark && !isMobile && currentSize > 1.5) {
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, currentSize * 2.5, 0, Math.PI * 2);
-          ctx.fillStyle = p.color;
-          ctx.globalAlpha = alpha * 0.15;
-          ctx.fill();
-        }
-      }
-
-      // Restaurar estado del contexto por seguridad
-      ctx.globalAlpha = 1;
       ctx.globalCompositeOperation = 'source-over';
     };
 
-    // Iniciar loop
     animationFrameId = window.requestAnimationFrame(draw);
 
     return () => {
