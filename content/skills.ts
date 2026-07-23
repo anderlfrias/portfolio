@@ -1,9 +1,9 @@
 export const SKILLS_CONTENT = {
-  headline: "Desarrollo sistemas web orientados a negocio, con enfoque en rendimiento y escalabilidad.",
-  specialization: "Especializado en automatización de procesos empresariales y optimización de sistemas que manejan grandes volúmenes de datos.",
-  workingStyle: "Trabajo con arquitecturas modulares, separación de responsabilidades y estructuras pensadas para escalar sin degradar el sistema.",
+  headline: "Priorizo arquitectura y modelado de datos por encima del framework de moda.",
+  specialization: "La mayoría de los problemas de escalabilidad empiezan en cómo se modelan los datos, no en la herramienta elegida para construir la interfaz.",
+  workingStyle: "Divido cada sistema por dominios de negocio, de forma que agregar una funcionalidad nueva no obligue a reescribir lo existente.",
   stack: [
     "React", "Next.js", "TypeScript", "Node.js", "Express", "MySQL", "PostgreSQL", "MongoDB"
   ],
-  proof: "He desarrollado sistemas empresariales en producción y optimizado consultas para mejorar significativamente los tiempos de respuesta."
+  proof: "Estos principios están aplicados en los proyectos en producción de la siguiente sección."
 };

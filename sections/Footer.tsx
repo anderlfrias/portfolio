@@ -16,8 +16,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col gap-4 text-sm font-medium text-text-main">
             <span className="text-text-disabled mb-2">Navegación</span>
-            <a href="#proyectos" className="hover:text-blue-inter">Proyectos</a>
             <a href="#habilidades" className="hover:text-blue-inter">Habilidades</a>
+            <a href="#experiencia" className="hover:text-blue-inter">Experiencia</a>
+            <a href="#educacion" className="hover:text-blue-inter">Educación</a>
+            <a href="#proyectos" className="hover:text-blue-inter">Proyectos</a>
             <a href="#contacto" className="hover:text-blue-inter">Contacto</a>
           </div>
         </div>
@@ -39,7 +41,7 @@ export default function Footer() {
             />            <span className="text-lg tracking-tight">anderlfrias</span>
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-text-main">© {new Date().getFullYear()} Todos los derechos reservados.</a>
+            <span>© {new Date().getFullYear()} Todos los derechos reservados.</span>
           </div>
         </div>
       </div>

@@ -24,16 +24,14 @@ export const PROJECTS: Project[] = [
     problem: 'La institución operaba con procesos fragmentados, dificultades en el control de pagos, generación lenta de reportes y falta de automatización en operaciones clave.',
     solution: 'Se desarrolló un sistema centralizado que integra gestión académica, facturación, pagos a profesores e inventario en una sola plataforma.',
     technicalDecisions: [
-      'Arquitectura modular por dominios',
-      'Modelado de base de datos para relaciones complejas',
-      'Soporte multisucursal sin duplicación de lógica',
-      'Optimización de consultas para reportes'
+      'División por módulos (académico, financiero, inventario), cada uno con sus propias reglas',
+      'Modelo de datos pensado para relaciones multisucursal sin duplicar información',
+      'Consultas optimizadas para que los reportes no dependieran de recalcular todo en cada solicitud'
     ],
     results: [
-      'Reducción en tiempos de generación de reportes',
-      'Mejora en control financiero y operativo',
-      'Disminución de errores manuales',
-      'Base escalable para crecimiento'
+      'Reportes que antes se armaban a mano ahora se generan directamente desde el sistema',
+      'Un solo punto de control para pagos, facturación e inventario en todas las sucursales',
+      'Menos errores por captura manual de datos'
     ],
     image: '/projects/gestion-academica/1.png',
     gallery: [
@@ -56,15 +54,14 @@ export const PROJECTS: Project[] = [
     problem: 'Dificultad para manejar información clínica estructurada, control de acceso limitado y procesos manuales en documentación médica.',
     solution: 'Se desarrolló una plataforma que centraliza la gestión clínica, mejora la organización de datos y permite control por roles.',
     technicalDecisions: [
-      'Modelado de datos clínicos complejos',
-      'Arquitectura multi-tenant',
-      'Control de acceso por roles',
-      'Separación de dominios'
+      'Modelo de datos clínico separado por empresa, sin mezclar información entre consultorios',
+      'Control de acceso por roles para limitar quién puede ver cada expediente',
+      'Estructura pensada para incorporar nuevas empresas sin modificar el código existente'
     ],
     results: [
-      'Mejora en acceso y organización de información',
-      'Reducción del tiempo de documentación médica',
-      'Mayor control de seguridad en datos sensibles'
+      'Expedientes clínicos organizados y accesibles según el rol de cada usuario',
+      'Menos tiempo dedicado a documentación manual',
+      'Datos sensibles protegidos mediante control de acceso granular'
     ],
     image: '/projects/sistema-clinico/1.png',
     gallery: [
@@ -86,16 +83,14 @@ export const PROJECTS: Project[] = [
     problem: 'Falta de visibilidad sobre tiempos de atención, métricas inexistentes y dificultad para detectar cuellos de botella.',
     solution: 'Se implementó un sistema de seguimiento por estados con métricas detalladas por agente, área y servicio.',
     technicalDecisions: [
-      'Modelado basado en eventos',
-      'Cálculo eficiente de métricas en tiempo real',
-      'Separación entre flujo y analítica',
-      'Arquitectura escalable'
+      'Cada cambio de estado se registra como evento, para reconstruir el flujo completo después',
+      'Métricas calculadas por agente, área y servicio sin afectar el rendimiento del flujo en vivo',
+      'Separación entre el sistema que atiende el flujo y el que genera los reportes'
     ],
     results: [
-      'Visibilidad completa del flujo de atención',
-      'Identificación de cuellos de botella',
-      'Mejora en toma de decisiones',
-      'Optimización de tiempos de servicio'
+      'Visibilidad en tiempo real de dónde se generan los cuellos de botella',
+      'Métricas por agente y por servicio que antes no existían',
+      'Datos objetivos para decidir dónde reforzar personal o ajustar procesos'
     ],
     image: '/projects/kiu/1.png',
     gallery: [
@@ -109,6 +104,7 @@ export const PROJECTS: Project[] = [
       '/projects/kiu/8.png',
       '/projects/kiu/9.png',
       '/projects/kiu/10.png',
+      '/projects/kiu/11.png',
     ]
   }
 ];

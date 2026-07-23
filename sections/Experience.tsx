@@ -1,4 +1,4 @@
-import { Briefcase, Activity, Globe, Database, Server, Terminal, Calendar, Code2 } from 'lucide-react';
+import { Briefcase, Database, Server, Terminal, Calendar, Code2 } from 'lucide-react';
 
 export default function Experience() {
   return (
@@ -17,17 +17,15 @@ export default function Experience() {
             Experiencia construyendo software real.
           </h2>
           <p className="text-lg md:text-xl text-text-sec leading-relaxed font-light">
-            Más de <span className="text-text-main font-medium">4 años</span> construyendo sistemas empresariales orientados a automatización, integración y escalabilidad.<br className="hidden md:block" /> Experiencia diseñando y operando plataformas en producción dentro de entornos clínicos, financieros y administrativos.
+            Desde 2021 trabajo como ingeniero de software en Centro Médico Docente Siglo 21, donde hoy lidero decisiones técnicas.<br className="hidden md:block" /> Desde 2022 combino ese rol con proyectos independientes para otras empresas, aplicando el mismo enfoque a distintos dominios de negocio.
           </p>
         </div>
 
         {/* 2. METRICS BLOCK */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-24">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-24 max-w-xl mx-auto md:mx-0">
           {[
             { value: '4+ años', label: 'Desarrollando software', icon: <Terminal className="w-5 h-5" /> },
-            { value: '8+', label: 'Sistemas empresariales', icon: <Database className="w-5 h-5" /> },
-            { value: 'Múltiples', label: 'Integraciones con plataformas', icon: <Globe className="w-5 h-5" /> },
-            { value: 'Producción', label: 'Sistemas desplegados', icon: <Activity className="w-5 h-5" /> },
+            { value: '8+', label: 'Sistemas empresariales construidos', icon: <Database className="w-5 h-5" /> },
           ].map((metric, i) => (
              <div key={i} className="p-6 bg-surface rounded-[1.5rem] border border-surface shadow-sm hover:shadow-md hover:border-blue-base/30 transition-all duration-300 group flex flex-col items-center sm:items-start text-center sm:text-left">
                <div className="mb-4 w-10 h-10 rounded-full bg-bg-main border border-surface flex items-center justify-center text-blue-base group-hover:scale-110 transition-transform duration-300">
@@ -83,9 +81,9 @@ export default function Experience() {
           <div className="bg-surface rounded-[2rem] p-8 md:p-12 border border-surface shadow-sm hover:shadow-lg transition-all duration-300">
              <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
               <div>
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Consultoría en Desarrollo de Software</h3>
+                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Proyectos Independientes</h3>
                 <div className="text-blue-base font-medium text-lg flex items-center gap-2">
-                  <Server className="w-5 h-5" /> Soluciones de Software a Medida
+                  <Server className="w-5 h-5" /> Desarrollo freelance, en paralelo a mi rol principal
                 </div>
               </div>
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-main border border-surface text-text-sec text-sm font-medium shrink-0">
@@ -95,10 +93,10 @@ export default function Experience() {
 
             <ul className="space-y-4 mb-8">
               {[
-                "Diseño de soluciones empresariales para automatización de procesos administrativos y operativos.",
-                "Levantamiento de requerimientos y definición de arquitectura técnica en proyectos de software.",
-                "Implementación de sistemas escalables para gestión clínica, académica y financiera.",
-                "Soporte y evolución de aplicaciones en producción basadas en feedback real de usuarios.",
+                "Sistema de gestión académica y financiera para una institución con múltiples sucursales.",
+                "Sistema de gestión clínica multiempresa para consultorios médicos.",
+                "Sistema de turnos y monitoreo operativo para medir tiempos de atención en tiempo real.",
+                "Levantamiento de requerimientos y arquitectura directamente con cada cliente, de principio a fin.",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3 text-text-sec leading-relaxed font-light">
                   <div className="w-1.5 h-1.5 rounded-full bg-blue-base/50 mt-2.5 shrink-0" />

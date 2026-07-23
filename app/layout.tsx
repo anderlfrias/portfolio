@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Anderson Frias | Desarrollador",
-  description: "Desarrollador Full Stack con +4 años de experiencia en desarrollo web con JavaScript, TypeScript, React, Next.js y Node.js. Especializado en sistemas escalables, integración de APIs y soluciones empresariales.",
+  title: "Anderson Frias | Desarrollador Full Stack",
+  description: "Desarrollador Full Stack con 4+ años de experiencia construyendo sistemas de gestión empresarial: facturación, historiales clínicos y control operativo, con React, Next.js, TypeScript y Node.js.",
 };
 
 export default function RootLayout({
@@ -23,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
