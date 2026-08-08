@@ -1,120 +1,146 @@
-import { Briefcase, Database, Server, Terminal, Calendar, Code2 } from 'lucide-react';
+import React from 'react';
+import { Briefcase, Terminal, Database, Cpu, GitBranch, Code2, Server, Calendar, Sparkles, Activity } from 'lucide-react';
+import { EXPERIENCE_CONTENT, ExperienceMetric } from '@/content/experience';
+
+const metricIconMap: Record<ExperienceMetric['iconName'], React.ReactNode> = {
+  Terminal: <Terminal className="w-5 h-5" />,
+  Database: <Database className="w-5 h-5" />,
+  Cpu: <Cpu className="w-5 h-5" />,
+  GitBranch: <GitBranch className="w-5 h-5" />,
+};
 
 export default function Experience() {
   return (
-    <section id="experiencia" className="py-24 md:py-32 px-6 relative overflow-hidden">
-      {/* Decorative background elements */}
-      <div className="absolute top-1/4 right-[-10%] w-[40%] h-[40%] bg-blue-base/10 blur-[120px] rounded-full pointer-events-none"></div>
+    <section id="experiencia" className="py-24 md:py-32 px-6 relative overflow-hidden bg-bg-main">
+      {/* Background ambient glowing mesh (Antigravity vibe) */}
+      <div className="absolute top-1/4 left-[-10%] w-[45%] h-[45%] bg-blue-base/15 blur-[140px] rounded-full pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-[-10%] w-[40%] h-[40%] bg-blue-inter/15 blur-[140px] rounded-full pointer-events-none"></div>
+      
+      {/* Subtle grid pattern background */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
 
-      <div className="max-w-[1000px] mx-auto relative z-10">
+      <div className="max-w-[1200px] mx-auto relative z-10">
         
         {/* 1. INTRO BLOCK */}
-        <div className="space-y-6 mb-16 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-surface shadow-sm text-text-sec text-sm font-semibold tracking-wide uppercase">
-            <Briefcase className="w-4 h-4 text-blue-base" /> Trayectoria
+        <div className="max-w-3xl mx-auto text-center space-y-6 mb-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface border border-surface shadow-sm text-text-sec text-xs font-semibold tracking-wider uppercase">
+            <Briefcase className="w-4 h-4 text-blue-inter" />
+            <span>{EXPERIENCE_CONTENT.badge}</span>
           </div>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-tight text-text-main">
-            Experiencia construyendo software real.
+
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-text-main leading-[1.1]">
+            {EXPERIENCE_CONTENT.title}
           </h2>
+
           <p className="text-lg md:text-xl text-text-sec leading-relaxed font-light">
-            Desde 2021 trabajo como ingeniero de software en Centro Médico Docente Siglo 21, donde hoy lidero decisiones técnicas.<br className="hidden md:block" /> Desde 2022 combino ese rol con proyectos independientes para otras empresas, aplicando el mismo enfoque a distintos dominios de negocio.
+            {EXPERIENCE_CONTENT.subtitle}
           </p>
         </div>
 
-        {/* 2. METRICS BLOCK */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-24 max-w-xl mx-auto md:mx-0">
-          {[
-            { value: '4+ años', label: 'Desarrollando software', icon: <Terminal className="w-5 h-5" /> },
-            { value: '8+', label: 'Sistemas empresariales construidos', icon: <Database className="w-5 h-5" /> },
-          ].map((metric, i) => (
-             <div key={i} className="p-6 bg-surface rounded-[1.5rem] border border-surface shadow-sm hover:shadow-md hover:border-blue-base/30 transition-all duration-300 group flex flex-col items-center sm:items-start text-center sm:text-left">
-               <div className="mb-4 w-10 h-10 rounded-full bg-bg-main border border-surface flex items-center justify-center text-blue-base group-hover:scale-110 transition-transform duration-300">
-                 {metric.icon}
-               </div>
-               <h4 className="text-2xl lg:text-3xl font-semibold tracking-tight text-text-main mb-1 group-hover:text-blue-base transition-colors duration-300">{metric.value}</h4>
-               <p className="text-sm text-text-sec font-medium">{metric.label}</p>
-             </div>
+        {/* 2. HIGH-TECH METRICS BLOCK */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-20 max-w-2xl mx-auto">
+          {EXPERIENCE_CONTENT.metrics.map((metric, i) => (
+            <div
+              key={i}
+              className="group relative p-6 md:p-7 rounded-[1.8rem] bg-surface/80 backdrop-blur-md border border-surface shadow-sm hover:shadow-[0_0_30px_rgba(57,184,201,0.12)] hover:border-blue-inter/40 transition-all duration-500 flex items-center gap-5"
+            >
+              <div className="w-14 h-14 rounded-2xl bg-bg-main border border-surface flex items-center justify-center text-blue-inter shrink-0 group-hover:scale-110 group-hover:border-blue-inter/40 group-hover:shadow-[0_0_20px_rgba(57,184,201,0.25)] transition-all duration-300">
+                {metricIconMap[metric.iconName]}
+              </div>
+              <div>
+                <h4 className="text-3xl font-bold tracking-tight text-text-main group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-base group-hover:to-blue-inter transition-all duration-300">
+                  {metric.value}
+                </h4>
+                <p className="text-xs md:text-sm text-text-sec font-medium leading-snug mt-0.5">
+                  {metric.label}
+                </p>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* 3 & 4. PROFESSIONAL EXPERIENCE CARDS */}
-        <div className="space-y-8">
-          
-          {/* Card 1 */}
-          <div className="bg-surface rounded-[2rem] p-8 md:p-12 border border-surface shadow-sm hover:shadow-lg transition-all duration-300">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Centro Médico Docente Siglo 21</h3>
-                <div className="text-blue-base font-medium text-lg flex items-center gap-2">
-                  <Code2 className="w-5 h-5" /> Software Engineer · Technical Lead
+        {/* 3. INTERACTIVE CIRCUIT / TIMELINE HUB */}
+        <div className="relative">
+          {/* Vertical Glowing Connector Line (Desk & Mobile) */}
+          <div className="absolute left-4 sm:left-8 md:left-1/2 top-4 bottom-8 -ml-px w-[2px] bg-gradient-to-b from-blue-base via-blue-inter to-green-accent opacity-40"></div>
+
+          <div className="space-y-12 sm:space-y-16">
+            {EXPERIENCE_CONTENT.experiences.map((exp, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <div
+                  key={exp.id}
+                  className={`relative flex flex-col md:flex-row items-start ${
+                    isEven ? 'md:flex-row-reverse' : ''
+                  } group`}
+                >
+                  {/* Timeline Node Marker */}
+                  <div className="absolute left-4 sm:left-8 md:left-1/2 -translate-x-1/2 top-8 z-20 flex items-center justify-center">
+                    <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-bg-main border-2 border-blue-inter text-blue-inter shadow-[0_0_15px_rgba(57,184,201,0.4)] group-hover:scale-125 group-hover:border-green-accent group-hover:text-green-accent transition-all duration-300">
+                      <Activity className="w-3.5 h-3.5 animate-pulse" />
+                    </div>
+                  </div>
+
+                  {/* Card Container */}
+                  <div className="w-full md:w-[calc(50%-2.5rem)] pl-12 sm:pl-20 md:pl-0">
+                    <div className="relative p-8 md:p-10 rounded-[2rem] bg-surface/90 backdrop-blur-md border border-surface shadow-sm group-hover:shadow-[0_0_35px_rgba(30,79,138,0.15)] group-hover:border-blue-inter/40 transition-all duration-500 ease-out">
+                      
+                      {/* Top Meta Line: Position & Date Tag */}
+                      <div className="flex flex-wrap items-start justify-between gap-3 mb-6">
+                        <div>
+                          <div className="inline-flex items-center gap-2 mb-2 px-3 py-1 rounded-full bg-bg-main border border-surface text-xs font-mono text-text-sec">
+                            {exp.id === 'siglo-21' ? (
+                              <Code2 className="w-3.5 h-3.5 text-blue-inter" />
+                            ) : (
+                              <Server className="w-3.5 h-3.5 text-green-accent" />
+                            )}
+                            <span>{exp.type}</span>
+                          </div>
+                          <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main">
+                            {exp.company}
+                          </h3>
+                          <p className="text-base md:text-lg font-medium text-blue-base mt-1 flex items-center gap-2">
+                            {exp.role}
+                          </p>
+                        </div>
+
+                        {/* Monospace Period Pill */}
+                        <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-base/10 border border-blue-base/20 text-blue-base text-xs font-mono font-medium shrink-0">
+                          <Calendar className="w-3.5 h-3.5" />
+                          <span>{exp.period}</span>
+                        </div>
+                      </div>
+
+                      {/* Highlights / Bullet Points */}
+                      <ul className="space-y-3.5 mb-8">
+                        {exp.highlights.map((item, hIdx) => (
+                          <li key={hIdx} className="flex items-start gap-3 text-text-sec leading-relaxed text-sm md:text-base font-light">
+                            <Sparkles className="w-4 h-4 text-blue-inter shrink-0 mt-1 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all" />
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+
+                      {/* Tech Stack Chips */}
+                      <div className="pt-6 border-t border-surface flex flex-wrap gap-2">
+                        {exp.techStack.map((tech, tIdx) => (
+                          <span
+                            key={tIdx}
+                            className="px-3.5 py-1.5 rounded-xl text-xs font-mono font-medium text-text-sec bg-bg-main/80 border border-surface hover:border-blue-inter/40 hover:text-blue-inter transition-all duration-300 cursor-default"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-main border border-surface text-text-sec text-sm font-medium shrink-0">
-                <Calendar className="w-4 h-4" /> 2021 — Actualidad
-              </div>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                "Diseñé y desarrollé una plataforma integral de facturación, inventario y contabilidad utilizada en producción, eliminando dependencia de software externo y reduciendo costos operativos.",
-                "Implementé sistemas internos para gestión de servicios médicos a domicilio, integrando operaciones, facturación y métricas de negocio.",
-                "Diseñé APIs REST para integración entre múltiples sistemas, mejorando consistencia y reduciendo fricción en el intercambio de datos.",
-                "Lideré decisiones técnicas y coordinación del equipo de desarrollo, definiendo arquitectura y estándares de implementación.",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-text-sec leading-relaxed font-light">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-base/50 mt-2.5 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-2 pt-6 border-t border-bg-main">
-              {['Next.js', 'React', 'Node.js', 'MySQL', 'Linux', 'PM2'].map((tech, i) => (
-                <span key={i} className="px-4 py-1.5 rounded-lg text-sm font-medium text-text-sec bg-bg-main border border-surface hover:text-blue-base transition-colors cursor-default">
-                  {tech}
-                </span>
-              ))}
-            </div>
+              );
+            })}
           </div>
-
-          {/* Card 2 */}
-          <div className="bg-surface rounded-[2rem] p-8 md:p-12 border border-surface shadow-sm hover:shadow-lg transition-all duration-300">
-             <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-6 mb-8">
-              <div>
-                <h3 className="text-2xl md:text-3xl font-medium tracking-tight text-text-main mb-3">Proyectos Independientes</h3>
-                <div className="text-blue-base font-medium text-lg flex items-center gap-2">
-                  <Server className="w-5 h-5" /> Desarrollo freelance, en paralelo a mi rol principal
-                </div>
-              </div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bg-main border border-surface text-text-sec text-sm font-medium shrink-0">
-                <Calendar className="w-4 h-4" /> 2022 — Actualidad
-              </div>
-            </div>
-
-            <ul className="space-y-4 mb-8">
-              {[
-                "Sistema de gestión académica y financiera para una institución con múltiples sucursales.",
-                "Sistema de gestión clínica multiempresa para consultorios médicos.",
-                "Sistema de turnos y monitoreo operativo para medir tiempos de atención en tiempo real.",
-                "Levantamiento de requerimientos y arquitectura directamente con cada cliente, de principio a fin.",
-              ].map((item, i) => (
-                <li key={i} className="flex items-start gap-3 text-text-sec leading-relaxed font-light">
-                  <div className="w-1.5 h-1.5 rounded-full bg-blue-base/50 mt-2.5 shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="flex flex-wrap gap-2 pt-6 border-t border-bg-main">
-              {['Next.js', 'React', 'Express', 'Sails.js', 'MongoDB', 'PostgreSQL'].map((tech, i) => (
-                <span key={i} className="px-4 py-1.5 rounded-lg text-sm font-medium text-text-sec bg-bg-main border border-surface hover:text-blue-base transition-colors cursor-default">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </div>
-
         </div>
+
       </div>
     </section>
   );
