@@ -1,7 +1,7 @@
 export interface ExperienceMetric {
   value: string;
   label: string;
-  iconName: 'Terminal' | 'Database' | 'Cpu' | 'GitBranch';
+  iconName: 'Terminal' | 'Database';
 }
 
 export interface ExperienceItem {
