@@ -9,6 +9,9 @@ export interface Project {
   technicalDecisions: string[];
   results: string[];
   tags: string[];
+  // Enlaces opcionales: sitio del proyecto y repositorio público
+  url?: string;
+  github?: string;
   image: string;
   gallery: string[];
 }
@@ -105,6 +108,44 @@ export const PROJECTS: Project[] = [
       '/projects/kiu/9.png',
       '/projects/kiu/10.png',
       '/projects/kiu/11.png',
+    ]
+  },
+  {
+    id: '4',
+    slug: 'link',
+    title: 'Link: chat interno de código abierto',
+    description: 'Chat interno de código abierto para equipos y organizaciones, con mensajería en tiempo real, archivos y panel de administración.',
+    tags: ['Next.js', 'Socket.IO', 'PostgreSQL', 'Docker'],
+    context: 'Plataforma de mensajería interna de código abierto (AGPL-3.0), diseñada para instalarse en la infraestructura de cada equipo u organización, con cuentas propias o integrada con su sistema de identidad.',
+    problem: 'Equipos y organizaciones que necesitan un chat interno con sus datos y sus cuentas bajo su control, sin depender de un servicio de terceros y sin una instalación compleja.',
+    solution: 'Se desarrolló Link: mensajería en tiempo real con conversaciones privadas, grupos, reacciones, menciones, encuestas, archivos, notas de voz y llamadas 1 a 1, junto con un panel de administración con auditoría. Se instala con un solo docker compose.',
+    technicalDecisions: [
+      'Autenticación enchufable: cuentas propias o login delegado en el sistema de identidad de la organización mediante un plugin, con una sesión emitida por Link',
+      'Archivos en disco o en cualquier almacenamiento compatible con S3, con subida por partes para archivos grandes y descargas mediante URLs firmadas',
+      'Backend dividido en módulos por dominio y tareas de mantenimiento (retención de mensajes, limpieza y migración de archivos) en workers separados del flujo de mensajes',
+      'Migraciones de Prisma verificadas en la integración continua y pruebas unitarias obligatorias para todo código nuevo'
+    ],
+    results: [
+      'Publicado como código abierto bajo AGPL-3.0, con documentación de arquitectura, API y seguridad',
+      'Instalación en minutos: un comando genera los secretos y un solo docker compose levanta la base de datos, el backend y el frontend',
+      'Cada organización puede usar cuentas propias o conectar su sistema de identidad sin modificar el código del chat'
+    ],
+    url: 'https://anderlfrias.com/link',
+    github: 'https://github.com/anderlfrias/link',
+    image: '/projects/link/cover.jpg',
+    gallery: [
+      '/projects/link/1.jpg',
+      '/projects/link/2.jpg',
+      '/projects/link/3.jpg',
+      '/projects/link/4.jpg',
+      '/projects/link/5.jpg',
+      '/projects/link/6.jpg',
+      '/projects/link/7.jpg',
+      '/projects/link/8.jpg',
+      '/projects/link/9.jpg',
+      '/projects/link/10.jpg',
+      '/projects/link/11.jpg',
+      '/projects/link/12.jpg',
     ]
   }
 ];

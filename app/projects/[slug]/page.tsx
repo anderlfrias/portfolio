@@ -2,7 +2,7 @@ import { PROJECTS } from '@/content/projects';
 import { notFound } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import Footer from '@/sections/Footer';
-import { ArrowLeft, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, ExternalLink, Github } from 'lucide-react';
 import Link from 'next/link';
 import ProjectGallery from '@/components/ProjectGallery';
 
@@ -41,6 +41,30 @@ export default async function ProjectPage({
               </span>
             ))}
           </div>
+          {(project.url || project.github) && (
+            <div className="flex flex-wrap items-center gap-4 mt-8">
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-blue-base text-white px-6 py-3 rounded-full font-medium hover:bg-[#173E6B] transition-all shadow-lg"
+                >
+                  <ExternalLink className="w-4 h-4" /> Visitar sitio
+                </a>
+              )}
+              {project.github && (
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-surface font-medium hover:bg-surface transition-colors"
+                >
+                  <Github className="w-4 h-4" /> Ver en GitHub
+                </a>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="bg-[#0F172A] rounded-[2rem] h-[400px] mb-16 overflow-hidden w-full">
